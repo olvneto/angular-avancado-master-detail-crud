@@ -28,8 +28,7 @@ export class InMemoryDatabase implements InMemoryDbService{
                 id: 3,
                 name: "Freelas",
                 description:"Trabalhos como freelancer"
-            },
-            
+            }            
         ];
         return { categories }
     }
