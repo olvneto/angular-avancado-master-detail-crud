@@ -1,0 +1,16 @@
+.box {
+    box-sizing: border-box;
+    padding: 5px;
+    width: 200px;
+    height: 80px;
+    background-color: green;
+    text-align: center;
+    color: white;
+    font-size: 30px;
+    margin-right: 5px;
+    /*box-shadow: 0 0 0 10px silver; /* controle aqui até onde vai a cor */
+}
+
+.box  .sp{
+    font-size: 15px;
+}

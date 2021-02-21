@@ -27,8 +27,8 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder
-  ) {}
-  
+  ) { }
+
 
   ngAfterContentChecked(): void {
     this.setPageTitle();
@@ -38,6 +38,15 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
     this.setCurrentAction();
     this.buildCategoryForm();
     this.loadCategory();
+  }
+
+  submitForm() {
+    if (this.currentAction === 'new') {
+      this.createCategory();
+    }
+    else {
+      this.updateCategory();
+    }
   }
 
   private setCurrentAction(): void {
@@ -82,6 +91,44 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
     }
   }
 
+  createCategory(): void {
+    const category: Category = Object.assign(new Category(), this.categoryForm.value);
+    this.categoryService.create(category)
+      .subscribe(
+        category => this.actionsForSuccess(category),
+        error => this.actionsForError(error)
+      );
+  }
+
+  updateCategory(): void {
+    const category: Category = Object.assign(new Category(), this.categoryForm.value);
+
+    this.categoryService.update(category)
+    .subscribe(
+      category => this.actionsForSuccess(category),
+      error => this.actionsForError(error)
+    );
+  }
+
+  private actionsForSuccess(category: Category): void {
+    toastr.success("Solicitação processada com sucesso!");
+
+    this.router.navigateByUrl("categories", { skipLocationChange: true }).then(
+      () => this.router.navigate(["categories", category.id, "edit"])
+    );
+  }
+
+  private actionsForError(error): void {
+    toastr.error("Ocorreu um erro ao processar a sua solicitação!");
+
+    this.submittingForm = false;
+    if (error.status === 422) {
+      this.serverErrorMessages = JSON.parse(error._body).errors;
+    }
+    else {
+      this.serverErrorMessages = ["Falha na comunicação com o servidor!"]
+    }
+  }
 }
 
 
