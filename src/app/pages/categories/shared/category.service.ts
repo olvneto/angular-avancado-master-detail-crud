@@ -13,6 +13,7 @@ import { Category } from './category.model';
 export class CategoryService {
 
 private apiPath: string = "api/categories";
+//private apiPath: string = "http://localhost:3000/categories";
 
   constructor(private http: HttpClient) { }
 
@@ -22,7 +23,13 @@ private apiPath: string = "api/categories";
       map(this.jsonDataToCategories)
     )
   }
-
+/*
+  getAll(): Observable<Category[]> {
+    return this.http.get<Category[]>(this.apiPath).pipe(
+      catchError(this.handleError),
+      map(this.jsonDataToCategories));
+  }
+*/
   getById(id: number): Observable<Category>{
     const url = `${this.apiPath}/${id}`;
     
