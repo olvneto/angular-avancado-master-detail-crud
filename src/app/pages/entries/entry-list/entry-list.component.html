@@ -31,7 +31,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let entry of entries">
+    <tr *ngFor="let entry of entries" [class.lista]="entry.paidText === 'Pago'">
       <td>
         <strong>{{entry.name}}</strong><br>
         <strong class="text-success">{{entry.date}}</strong><br>
@@ -40,7 +40,7 @@
       <td>
         {{entry.category.name}}
       </td>
-      <td>
+      <td class="text-right">
         <strong [class.text-success]="entry.type === 'revenue'" 
           [class.text-danger]="entry.type === 'expense'">
           {{entry.amount}}
