@@ -74,8 +74,7 @@
           formControlName="date"
           inputStyleClass="form-control"
           dataType="string"
-          dateFormat="dd/mm/yy"
-        >
+          dateFormat="dd/mm/yy">
         </p-calendar-->
           <input type="text" class="form-control" id="date" formControlName="date">
           <div class="text-danger" *ngIf="entryForm.get('date').invalid && entryForm.get('date').touched">
